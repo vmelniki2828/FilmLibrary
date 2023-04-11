@@ -1,2 +1,7 @@
-@import './common';
+@import './utils/mixins';
+
+@import './base/conteiner';
+@import './base/reset';
+@import './base/common';
+
 @import './example';
