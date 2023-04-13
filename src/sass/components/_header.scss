@@ -46,17 +46,140 @@
 
 .nav__logo-name{
     display: none;
+    @include tablet{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 35px;
+        display: flex;
+        margin-left: 10px;
+    }
+}
+
+.nav__logo{
+    display: flex;
+    align-items: center;
 }
 
 .nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .nav__list{
     display: flex;
 }
 
+.nav__item{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+}
+
 .nav__item:not(:last-child){
     margin-right: 40px;
 }
+
+.form{
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 280px;
+    @include tablet {
+        width: 336px;
+        margin-top: 40px;
+    }
+}
+
+.input__form{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background-color: transparent;
+    outline: none;
+    transition: 0.3s;
+    color: #fff;
+    width: 100%;
+}
+
+.btn__form{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: 1px;
+    outline: none;
+}
+
+.header__bg{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.header__bg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 14px;
+    }
+}
+
+.header__switch{
+    margin: 0 10px;
+}
+
+.switch{
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.switch__input{
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #ffffff;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    cursor: pointer;
+    left: 4px;
+    bottom: 4px;
+    height: 26px;
+    width: 26px;
+
+    border-radius: 50%;
+
+    background-color: #FF6B08;
+}
+
+// .switch__input:checked + .slider {
+//     background-color: #8b5e5e;
+// }
+
+// .switch__input:checked + .slider::before{
+//     transform: translateX(26px);
+// }

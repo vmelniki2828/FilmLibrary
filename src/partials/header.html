@@ -5,7 +5,7 @@
       <div class="nav">
         <div class="nav__logo">
           <svg class="nav__svg" width="24" height="24">
-            <use href="/src/images/film.svg"></use>
+            <use href="./images/symbol-defs.svg#icon-film-2"></use>
           </svg>
           <h1 class="nav__logo-name">Filmoteka</h1>
         </div>
@@ -17,13 +17,24 @@
       </div>
 
         <form class="form">
-          <input class="input__form">
+          <input class="input__form" type="text" name="search" placeholder="Movie search">
           <button class="btn__form">
-          <svg class="btn__svg" width="12" height="12">
-            <use href="/src/images/search 2.svg"></use>
-          </svg>
+            <svg class="btn__svg" width="12" height="12">
+              <use href="./images/symbol-defs.svg#icon-search_2"></use>
+            </svg>
           </button>
         </form>
+
+        <div class="header__bg">
+            <p>LIGHT</p>
+            <div class="header__switch">
+              <label class="switch" for="switch">
+                <input class="switch__input" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p>DARK</p>
+        </div>
 
     </div>
   </section>
