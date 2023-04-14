@@ -1,0 +1,21 @@
+.movie {
+  margin-right: 16px;
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+.movie__img {
+  width: 280px;
+  height: 398px;
+  transition: scale 200ms linear;
+  @media screen and (min-width: $tablet) {
+    width: 336px;
+    height: 455px;
+  }
+  @media screen and (min-width: $desktop) {
+    width: 394px;
+    height: 574px;
+  }
+}
