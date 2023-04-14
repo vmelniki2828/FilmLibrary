@@ -1,9 +1,11 @@
 @import './utils/mixins';
+@import './utils/_variables';
 
-@import './base/conteiner';
+@import './base/_conteiner';
 @import './base/reset';
 @import './base/common';
 
 @import './components/header';
+@import './components/_main_movies';
 
 @import './example';
