@@ -1,17 +1,18 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
+
+
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const movies = document.querySelector('.movies');
 
 function getPopularMovies() {
-  axios
-    .get(`${BASE_URL}/movie/popular?api_key=${KEY}&page=1`).then(res => {
-        showMovies(res.data.results)
-        console.table(res.data.results.vote_average);
-    })
+  axios.get(`${BASE_URL}/movie/popular?api_key=${KEY}&page=1`).then(res => {
+    showMovies(res.data.results);
+    console.table(res.data.results.vote_average);
+  });
 }
 
 getPopularMovies()
