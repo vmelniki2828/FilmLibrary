@@ -1,13 +1,13 @@
-.movies{
-    margin-top: 60px;
+.movies {
+  margin-top: 60px;
+  justify-content: space-between;
 }
 
 .movie_card {
-  margin-right: 16px;
-  margin-bottom: 32px;
+    margin-bottom: 20px;
 
-  &:nth-child(3n) {
-    margin-right: 0;
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 32px;
   }
 }
 
@@ -44,7 +44,6 @@
   line-height: 16px;
   color: $secondary-text-color;
 }
-
 
 .movie_vote {
   background: #ff6b01;
