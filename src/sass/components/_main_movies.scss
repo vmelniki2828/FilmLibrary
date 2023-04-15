@@ -1,5 +1,10 @@
-.movie {
+.movies{
+    margin-top: 60px;
+}
+
+.movie_card {
   margin-right: 16px;
+  margin-bottom: 32px;
 
   &:nth-child(3n) {
     margin-right: 0;
@@ -9,6 +14,7 @@
 .movie__img {
   width: 280px;
   height: 398px;
+  border-radius: 5px;
   transition: scale 200ms linear;
   @media screen and (min-width: $tablet) {
     width: 336px;
@@ -18,4 +24,38 @@
     width: 394px;
     height: 574px;
   }
+}
+
+.movie_title {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+.movie_genre {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: $secondary-text-color;
+}
+
+
+.movie_vote {
+  background: #ff6b01;
+  padding: 1px 10px;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
 }
