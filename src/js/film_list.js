@@ -58,7 +58,6 @@ function showMovies(data){
     data.map(movie => {
         const {title, poster_path, vote_average, genre_ids, release_date} = movie;
         const movieEl = document.createElement('li')
-        console.log(movie);
         movieEl.classList.add('movie_card')
         movieEl.innerHTML = `
         <img class="movie__img" src="${IMG_URL + poster_path}" alt="${title}">
