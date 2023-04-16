@@ -4,7 +4,6 @@ const refs = {
   movieTitleColor: document.querySelector('.movies'),
 };
 
-console.log(refs.movieTitleColor)
 
 refs.blockSlider.addEventListener('click', onChangeColor);
 

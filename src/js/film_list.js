@@ -56,6 +56,7 @@ getMovies(popularMovies)
 function showMovies(data) {
   movies.innerHTML = '';
 
+
   data.map(movie => {
     const { title, poster_path, vote_average, genre_ids, release_date } = movie;
     const movieEl = document.createElement('li');
