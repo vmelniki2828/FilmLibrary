@@ -1,15 +1,17 @@
 import axios from 'axios';
-console.log("Asd");
+
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
-const popularMovies = `${BASE_URL}/movie/popular?api_key=${KEY}&page=1`;
-const searchUrl = `${BASE_URL}/search/movie?api_key=${KEY}&query=`
+const popularMovies = `${BASE_URL}/discover/movie?api_key=${KEY}`;
+const searchUrl = `${BASE_URL}/search/movie?api_key=${KEY}&query=`;
+const ganreUrl = `${BASE_URL}/discover/movie?api_key=${KEY}&with_genres=`;
 
 const movies = document.querySelector('.movies');
 const form = document.querySelector('.form');
 const search = document.querySelector('.form>input');
+const select = document.querySelector('.form>select');
 
 const genres = [
   { id: 28, name: 'Action' },
@@ -46,16 +48,37 @@ function idToGenre(id) {
 }
 
 function getMovies(url) {
-  fetch(url).then(res => res.json()).then(res => {
-    showMovies(res.results);
+  fetch(url)
+    .then(res => res.json())
+    .then(res => {
+      showMovies(res.results);
+    });
+}
+
+getMovies(popularMovies);
+
+function showGanresList(arr) {
+  select.innerHTML = '';
+  const selectAll = document.createElement('option');
+  selectAll.setAttribute('value', '');
+  selectAll.setAttribute('selected', '');
+  selectAll.innerHTML = 'All ganres:'
+  select.appendChild(selectAll);
+
+  arr.map(item => {
+
+    const selectEl = document.createElement(`option`);
+    selectEl.setAttribute(`value`, item.id)
+    selectEl.innerHTML = `${item.name}`;
+
+    select.appendChild(selectEl);
   });
 }
 
-getMovies(popularMovies)
+showGanresList(genres);
 
 function showMovies(data) {
   movies.innerHTML = '';
-
 
   data.map(movie => {
     const { title, poster_path, vote_average, genre_ids, release_date } = movie;
@@ -79,14 +102,14 @@ function showMovies(data) {
 }
 
 form.addEventListener('submit', e => {
-
   e.preventDefault();
 
   const searchValue = search.value;
-  console.log(searchUrl+searchValue);
-  
+  console.log(searchValue);
 
   if (searchValue) {
-    getMovies(`${searchUrl+searchValue}`);
+    getMovies(`${searchUrl + searchValue}`);
+  } else {
+    // getMovies(popularMovies)
   }
 });
