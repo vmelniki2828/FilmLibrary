@@ -1,57 +1,53 @@
 import Glide from '@glidejs/glide';
 
+const refs = {
+  movieEl: document.querySelectorAll('.glide__slide'),
+};
+
+
 const KEY = '7b497d31082fcfae4cc74000cae47751';
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const URL = 'https://api.themoviedb.org/3';
+const API_URL = `${URL}/discover/movie?api_key=${KEY}`;
+const IMG = 'https://image.tmdb.org/t/p/w500';
 
-const sliderMovies = `${BASE_URL}/discover/movie?api_key=${KEY}`;
-
-const MovieEl = document.querySelector('.glide__slides');
-
-console.log(MovieEl);
-
-function getSliderMovies(data) {
-  fetch(data)
+async function getSliderMovies() {
+  await fetch(API_URL)
     .then(res => res.json())
     .then(res => {
       getSliderOn(res.results);
     });
 }
+getSliderMovies ();
 
-getSliderMovies(sliderMovies);
-
-function getSliderOn(element) {
-  element.map(movie => {
-    const { poster_path, title } = movie;
-    const slideEl = document.createElement('li');
-    slideEl.classList.add('glide__slide');
-    slideEl.innerHTML = `
-        <img class="slider__img" src="${
-          IMG_URL + poster_path
-        }" alt="${title}" width="175px">`;
-
-    MovieEl.appendChild(slideEl);
+async function getSliderOn(element) {
+  element.forEach((movie, i) => {
+    const { poster_path, title, id } = movie;
+    if (!poster_path) {
+      refs.movieEl[i].innerHTML = `<img class='slider-js__img' src="./image/card.jpg" alt="${title}" id='${id}'/>`;
+      return;
+    }
+    refs.movieEl[i].innerHTML = `<img class='slider-js__img' src="${IMG}${poster_path}" alt="${title}" id='${id}'/>`;
   });
 }
 
-// const glide = new Glide('.glide', {
-//   type: 'slider',
-//   startAt: 0,
-//   perView: 10,
-//   autoplay: 3000,
-//   breakpoints: {
-//     1280: {
-//       perView: 8,
-//     },
-//     768: {
-//       perView: 4,
-//     },
-//     320: {
-//       perView: 1,
-//     },
-//   },
-// });
 
-// glide.mount();
-
+const glide = new Glide('.glide', {
+  type: 'slider',
+  startAt: 0,
+  perView: 10,
+  autoplay: 3000,
+  bound: true,
+  breakpoints: {
+    1280: {
+      perView: 7,
+    },
+    768: {
+      perView: 4,
+    },
+    480: {
+      perView: 2,
+    },
+  },
+});
+glide.mount();
 

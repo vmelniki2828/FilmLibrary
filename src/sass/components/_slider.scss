@@ -12,8 +12,9 @@
     }
 }
 
-.slider__img {
+.slider-js__img {
     border-radius: 10px;
+    width: 100%;
 
     &:hover,
     &:focus {
@@ -29,7 +30,6 @@
     margin-bottom: 35px;
 
     .glide__slide {
-        width: 10%;
         background-color: transparent;
         background-repeat: no-repeat;
         background-position: center;
