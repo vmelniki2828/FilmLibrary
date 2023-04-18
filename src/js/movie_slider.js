@@ -35,7 +35,7 @@ const glide = new Glide('.glide', {
   type: 'slider',
   startAt: 0,
   perView: 10,
-  autoplay: 3000,
+  autoplay: 2000,
   bound: true,
   breakpoints: {
     1280: {
