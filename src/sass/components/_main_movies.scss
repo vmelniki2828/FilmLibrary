@@ -4,18 +4,25 @@
 }
 
 .movie_card {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
 
   @media screen and (min-width: $tablet) {
     margin-bottom: 32px;
   }
 }
 
+.image-container{
+  overflow: hidden;
+  border-radius: 5px;
+}
+
 .movie__img {
   width: 280px;
   height: 398px;
   border-radius: 5px;
-  transition: scale 200ms linear;
+  transition: transform 0.3s ease-in-out;
+
   @media screen and (min-width: $tablet) {
     width: 336px;
     height: 455px;
@@ -24,6 +31,10 @@
     width: 394px;
     height: 574px;
   }
+}
+
+.image-container:hover .movie__img {
+  transform: scale(1.1); 
 }
 
 .movie_title {
@@ -59,24 +70,25 @@
   color: #ffffff;
 }
 
-.pagination{
+.pagination {
   display: flex;
   margin: 10px 30px;
   align-items: center;
   justify-content: center;
 }
 
-.pagePrev, .pageNext{
+.pagePrev,
+.pageNext {
   padding: 20px;
   cursor: pointer;
 }
 
-.pagePrev.disabled{
+.pagePrev.disabled {
   cursor: not-allowed;
-  color:gray;
+  color: gray;
 }
 
-.current{
+.current {
   padding: 10px 20px;
   border-radius: 50%;
   border: 5px solid #ff6b01;
