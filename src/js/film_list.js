@@ -68,29 +68,36 @@ function getMovies(url) {
     .then(res => res.json())
     .then(res => {
       console.log(res.results.length);
-      if(res.results.length != 0){
+      if (res.results.length != 0) {
         showMovies(res.results);
         pages.currentPage = res.page;
         pages.nextPage = pages.currentPage + 1;
         pages.prevPage = pages.currentPage - 1;
         pages.totalPages = res.total_pages;
 
-        current.innerText = pages.currentPage
+        current.innerText = pages.currentPage;
 
-        if(pages.currentPage <= 1){
+        if (pages.currentPage <= 1) {
           prev.classList.add('disabled');
           next.classList.remove('disabled');
-        }else if(pages.currentPage <= pages.totalPages){
+        } else if (pages.currentPage <= pages.totalPages) {
           prev.classList.remove('disabled');
           next.classList.add('disabled');
-        }else{
+        } else {
           prev.classList.remove('disabled');
           next.classList.remove('disabled');
         }
-      }else{
-        movies.innerHTML = '<h1>Error</h1>'
-      }
 
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      
+
+      } else {
+        movies.innerHTML = '<h1>Error</h1>';
+      }
     });
 }
 
@@ -128,9 +135,11 @@ function showMovies(data) {
     const movieEl = document.createElement('li');
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
+    <div class="image-container">
         <img class="movie__img" src="${
           poster_path === null ? noImg : IMG_URL + poster_path
         }" alt="${title}">
+        </div>
         <h3 class="movie_title">${title}</h3>
         <div class="movie_info">
             <span class="movie_genre">${
@@ -168,30 +177,30 @@ select.addEventListener('change', e => {
 });
 
 prev.addEventListener('click', () => {
-  if(pages.prevPage > 0){
-    pageCall(pages.prevPage)
+  if (pages.prevPage > 0) {
+    pageCall(pages.prevPage);
   }
-})
+});
 
 next.addEventListener('click', () => {
-  if(pages.nextPage <= pages.totalPages){
-    pageCall(pages.nextPage)
+  if (pages.nextPage <= pages.totalPages) {
+    pageCall(pages.nextPage);
   }
-})
+});
 
-function pageCall(page){
-  let urlSplit = pages.lastUrl.split('?')
-  let queryParams = urlSplit[1].split('&')
-  let key = queryParams[queryParams.length -1].split('=')
-  if(key[0] != 'page'){
-    let url = pages.lastUrl+'&page=' + page
-    getMovies(url)
-  }else{
+function pageCall(page) {
+  let urlSplit = pages.lastUrl.split('?');
+  let queryParams = urlSplit[1].split('&');
+  let key = queryParams[queryParams.length - 1].split('=');
+  if (key[0] != 'page') {
+    let url = pages.lastUrl + '&page=' + page;
+    getMovies(url);
+  } else {
     key[1] = page.toString();
-    let a = key.join('=')
-    queryParams[queryParams.length - 1] = a
-    let b = queryParams.join('&')
-    let url = urlSplit[0] + '?' + b
-    getMovies(url)
+    let a = key.join('=');
+    queryParams[queryParams.length - 1] = a;
+    let b = queryParams.join('&');
+    let url = urlSplit[0] + '?' + b;
+    getMovies(url);
   }
 }
