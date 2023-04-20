@@ -137,7 +137,6 @@ function showMovies(data) {
       const modal = document.getElementById(`${title}`);
       modal.classList.remove('is_hidden');
       modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
-      console.log(backdrop_path);
     });
     movieEl.classList.add('movie_card');
     console.log(movie)
