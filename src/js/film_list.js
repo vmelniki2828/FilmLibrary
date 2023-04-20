@@ -1,5 +1,6 @@
 import axios from 'axios';
 import noImg from '../images/no_img.png';
+import Handlebars from 'handlebars';
 
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -91,10 +92,8 @@ function getMovies(url) {
         window.scroll({
           top: 0,
           left: 0,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
-      
-
       } else {
         movies.innerHTML = '<h1>Error</h1>';
       }
@@ -133,6 +132,11 @@ function showMovies(data) {
       release_date = '',
     } = movie;
     const movieEl = document.createElement('li');
+    movieEl.addEventListener('click', () => {
+      const modal = document.getElementById(`${title}`);
+      modal.classList.remove('is_hidden');
+      console.log(modal);
+    });
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
     <div class="image-container">
@@ -148,6 +152,10 @@ function showMovies(data) {
 
             <span class="movie_vote">${vote_average}</span>
 
+        </div>
+
+        <div class="is_hidden modal" id="${title}">
+            <div class="black">${title}</div>
         </div>
         `;
     movies.appendChild(movieEl);
