@@ -130,14 +130,17 @@ function showMovies(data) {
       vote_average,
       genre_ids,
       release_date = '',
+      backdrop_path,
     } = movie;
     const movieEl = document.createElement('li');
     movieEl.addEventListener('click', () => {
       const modal = document.getElementById(`${title}`);
       modal.classList.remove('is_hidden');
-      console.log(modal);
+      modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
+      console.log(backdrop_path);
     });
     movieEl.classList.add('movie_card');
+    console.log(movie)
     movieEl.innerHTML = `
     <div class="image-container">
         <img class="movie__img" src="${
@@ -155,7 +158,7 @@ function showMovies(data) {
         </div>
 
         <div class="is_hidden modal" id="${title}">
-            <div class="black">${title}</div>
+            <div class="modal__content">${title}</div>
         </div>
         `;
     movies.appendChild(movieEl);
