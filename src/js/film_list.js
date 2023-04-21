@@ -4,7 +4,7 @@ import Handlebars from 'handlebars';
 
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const IMG_URL = 'https://image.tmdb.org/t/p/original/';
 
 const popularMovies = `${BASE_URL}/discover/movie?api_key=${KEY}`;
 const searchUrl = `${BASE_URL}/search/movie?api_key=${KEY}&query=`;
@@ -128,9 +128,13 @@ function showMovies(data) {
       title,
       poster_path,
       vote_average,
+      vote_count,
+      popularity,
+      original_title,
       genre_ids,
       release_date = '',
       backdrop_path,
+      overview,
     } = movie;
     const movieEl = document.createElement('li');
     movieEl.addEventListener('click', () => {
@@ -156,8 +160,38 @@ function showMovies(data) {
 
         </div>
 
+
         <div class="is_hidden modal" id="${title}">
-            <div class="modal__content">${title}</div>
+            <div class="modal__content">
+              <div class="img__block">
+                  <img class="modal__img" src="${
+                    IMG_URL + poster_path
+                  }" width="240px" height="357px" alt="${title}">
+              </div>
+              <div class="info__modal">
+                  <h3 class="modal__film-titel">${title}</h3>
+                <div class="list__modal">
+                    <ul class="list__titel">
+                        <li class="list__item">Vote / Votes</li>
+                        <li class="list__item">Popularity</li>
+                        <li class="list__item">Original Title</li>
+                        <li class="list__item">Genre</li>
+                    </ul>
+                    <ul class="list__value">
+                        <li class="list__item"><span class="list__value-item">${vote_average}</span> / ${vote_count}</li>
+                        <li class="list__item">${popularity}</li>
+                        <li class="list__item">${original_title}</li>
+                        <li class="list__item">${idToGenre(genre_ids)}</li>
+                    </ul>
+                </div>
+                <p class="modal__text-title">ABOUT</p>
+                <p class="modal__text">${overview}<p>
+                <div class="modal__btn">
+                    <button class="btn-item">ADD TO WATCHED</button>
+                    <button class="btn-item">ADD TO QUEUE</button>
+                </div>
+              </div>
+            </div>
         </div>
         `;
     movies.appendChild(movieEl);
