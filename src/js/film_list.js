@@ -15,11 +15,11 @@ const form = document.querySelector('.form');
 const search = document.querySelector('.form>input');
 const select = document.querySelector('.form>select');
 
-const prev = document.querySelector('.pagePrev');
-const next = document.querySelector('.pageNext');
+const prev = document.querySelector('.icon-arrow-left');
+const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
 
-console.log(prev);
+
 
 const pages = {
   currentPage: 1,
@@ -68,27 +68,27 @@ function getMovies(url) {
   fetch(url)
     .then(res => res.json())
     .then(res => {
-      console.log(res.results.length);
       if (res.results.length != 0) {
         showMovies(res.results);
+        console.log(pages.currentPage);
         pages.currentPage = res.page;
         pages.nextPage = pages.currentPage + 1;
         pages.prevPage = pages.currentPage - 1;
         pages.totalPages = res.total_pages;
-
+        console.log(pages.currentPage);
         current.innerText = pages.currentPage;
 
         if (pages.currentPage <= 1) {
           prev.classList.add('disabled');
           next.classList.remove('disabled');
-        } else if (pages.currentPage <= pages.totalPages) {
-          prev.classList.remove('disabled');
-          next.classList.add('disabled');
-        } else {
+        } else if (pages.currentPage < pages.totalPages) {
           prev.classList.remove('disabled');
           next.classList.remove('disabled');
+        } else {
+          next.classList.add('disabled');
+          prev.classList.remove('disabled');
         }
-
+        console.log(pages.currentPage <= pages.totalPages);
         window.scroll({
           top: 0,
           left: 0,
@@ -143,7 +143,6 @@ function showMovies(data) {
       modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
     });
     movieEl.classList.add('movie_card');
-    console.log(movie)
     movieEl.innerHTML = `
     <div class="image-container">
         <img class="movie__img" src="${

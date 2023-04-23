@@ -100,6 +100,10 @@
     line-height: 14px;
 }
 
+.nav__item.active{
+    border-bottom: 3px solid #ff001b;
+}
+
 .nav__item:not(:last-child){
     margin-right: 40px;
 }
