@@ -141,6 +141,7 @@ function showMovies(data) {
       const modal = document.getElementById(`${title}`);
       modal.classList.remove('is_hidden');
       modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
+      scrollControll();
     });
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
@@ -245,5 +246,15 @@ function pageCall(page) {
     let b = queryParams.join('&');
     let url = urlSplit[0] + '?' + b;
     getMovies(url);
+  }
+}
+
+const scrollControll = () => {
+  if (document.body.style.overflow === "hidden") {
+    // Разрешить скролл
+    document.body.style.overflow = "";
+  } else {
+    // Остановить скролл
+    document.body.style.overflow = "hidden";
   }
 }
