@@ -1,6 +1,7 @@
 import axios from 'axios';
 import noImg from '../images/no_img.png';
 import Handlebars from 'handlebars';
+import svg from '../images/symbol-defs.svg';
 
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -18,7 +19,6 @@ const select = document.querySelector('.form>select');
 const prev = document.querySelector('.icon-arrow-left');
 const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
-
 
 
 const pages = {
@@ -139,10 +139,30 @@ function showMovies(data) {
     const movieEl = document.createElement('li');
     movieEl.addEventListener('click', () => {
       const modal = document.getElementById(`${title}`);
+      const contentModal = document.getElementById(`${vote_average}`);
+      const btnClose = document.createElement('button');
+      btnClose.classList.add('btn-close');
+      btnClose.innerHTML = `
+          <svg width="20px" height="20px" class="icon-close">
+            <use class="icon-top" href="${svg}#icon-close"></use>
+          </svg>
+      `;
+      contentModal.appendChild(btnClose);
       modal.classList.remove('is_hidden');
       modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
+
+
+          const modalContent = document.querySelector('.btn-close');
+
+          modalContent.addEventListener('click', () => {
+            console.log('это клик')
+            modal.classList.add('is_hidden');
+            modal.style.backgroundImage = '';
+          });
+
       scrollControll();
     });
+    
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
     <div class="image-container">
@@ -162,7 +182,7 @@ function showMovies(data) {
 
 
         <div class="is_hidden modal" id="${title}">
-            <div class="modal__content">
+            <div class="modal__content" id="${vote_average}">
               <div class="img__block">
                   <img class="modal__img" src="${
                     IMG_URL + poster_path
@@ -197,6 +217,8 @@ function showMovies(data) {
     movies.appendChild(movieEl);
   });
 }
+
+
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -257,4 +279,6 @@ const scrollControll = () => {
     // Остановить скролл
     document.body.style.overflow = "hidden";
   }
-}
+};
+
+
