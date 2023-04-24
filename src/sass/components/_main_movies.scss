@@ -123,3 +123,26 @@
     }
   }
 }
+
+.to_top{
+  display: none;
+}
+
+.go_top_show{
+  position: fixed;
+  right: 20px;
+  top:85%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 15px;
+  display: block;
+}
+
+.icon-top{
+  fill: gray;  
+
+  &:hover{
+    fill:$buttonBg-color
+  }
+}
