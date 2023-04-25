@@ -20,7 +20,6 @@ const prev = document.querySelector('.icon-arrow-left');
 const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
 
-
 const pages = {
   currentPage: 1,
   nextPage: 2,
@@ -70,12 +69,10 @@ function getMovies(url) {
     .then(res => {
       if (res.results.length != 0) {
         showMovies(res.results);
-        console.log(pages.currentPage);
         pages.currentPage = res.page;
         pages.nextPage = pages.currentPage + 1;
         pages.prevPage = pages.currentPage - 1;
         pages.totalPages = res.total_pages;
-        console.log(pages.currentPage);
         current.innerText = pages.currentPage;
 
         if (pages.currentPage <= 1) {
@@ -88,7 +85,6 @@ function getMovies(url) {
           next.classList.add('disabled');
           prev.classList.remove('disabled');
         }
-        console.log(pages.currentPage <= pages.totalPages);
         window.scroll({
           top: 0,
           left: 0,
@@ -137,32 +133,7 @@ function showMovies(data) {
       overview,
     } = movie;
     const movieEl = document.createElement('li');
-    movieEl.addEventListener('click', () => {
-      const modal = document.getElementById(`${title}`);
-      const contentModal = document.getElementById(`${vote_average}`);
-      const btnClose = document.createElement('button');
-      btnClose.classList.add('btn-close');
-      btnClose.innerHTML = `
-          <svg width="20px" height="20px" class="icon-close">
-            <use class="icon-top" href="${svg}#icon-close"></use>
-          </svg>
-      `;
-      contentModal.appendChild(btnClose);
-      modal.classList.remove('is_hidden');
-      modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`
 
-
-          const modalContent = document.querySelector('.btn-close');
-
-          modalContent.addEventListener('click', () => {
-            console.log('это клик')
-            modal.classList.add('is_hidden');
-            modal.style.backgroundImage = '';
-          });
-
-      scrollControll();
-    });
-    
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
     <div class="image-container">
@@ -179,46 +150,65 @@ function showMovies(data) {
             <span class="movie_vote">${vote_average}</span>
 
         </div>
-
-
-        <div class="is_hidden modal" id="${title}">
-            <div class="modal__content" id="${vote_average}">
-              <div class="img__block">
-                  <img class="modal__img" src="${
-                    IMG_URL + poster_path
-                  }" width="240px" height="357px" alt="${title}">
-              </div>
-              <div class="info__modal">
-                  <h3 class="modal__film-titel">${title}</h3>
-                <div class="list__modal">
-                    <ul class="list__titel">
-                        <li class="list__item">Vote / Votes</li>
-                        <li class="list__item">Popularity</li>
-                        <li class="list__item">Original Title</li>
-                        <li class="list__item">Genre</li>
-                    </ul>
-                    <ul class="list__value">
-                        <li class="list__item"><span class="list__value-item">${vote_average}</span> / ${vote_count}</li>
-                        <li class="list__item">${popularity}</li>
-                        <li class="list__item">${original_title}</li>
-                        <li class="list__item">${idToGenre(genre_ids)}</li>
-                    </ul>
-                </div>
-                <p class="modal__text-title">ABOUT</p>
-                <p class="modal__text">${overview}<p>
-                <div class="modal__btn">
-                    <button class="btn-item">ADD TO WATCHED</button>
-                    <button class="btn-item">ADD TO QUEUE</button>
-                </div>
-              </div>
-            </div>
-        </div>
         `;
     movies.appendChild(movieEl);
+
+    movieEl.addEventListener('click', () => {
+      document.body.style.overflow = 'hidden';
+      const modalHTML = document.createElement('div');
+      modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
+      <div class="modal__content"">
+        <div class="img__block">
+            <img class="modal__img" src="${
+              IMG_URL + poster_path
+            }" width="240px" height="357px" alt="${title}">
+        </div>
+        <div class="info__modal">
+            <h3 class="modal__film-titel">${title}</h3>
+          <div class="list__modal">
+              <ul class="list__titel">
+                  <li class="list__item">Vote / Votes</li>
+                  <li class="list__item">Popularity</li>
+                  <li class="list__item">Original Title</li>
+                  <li class="list__item">Genre</li>
+              </ul>
+              <ul class="list__value">
+                  <li class="list__item"><span class="list__value-item">${vote_average}</span> / ${vote_count}</li>
+                  <li class="list__item">${popularity}</li>
+                  <li class="list__item">${original_title}</li>
+                  <li class="list__item">${idToGenre(genre_ids)}</li>
+              </ul>
+          </div>
+          <p class="modal__text-title">ABOUT</p>
+          <p class="modal__text">${overview}<p>
+          <div class="modal__btn">
+              <button class="btn-item">ADD TO WATCHED</button>
+              <button class="btn-item">ADD TO QUEUE</button>
+          </div>
+        </div>
+        
+        <button class="btn-close" id="${poster_path}">
+          <svg width="20px" height="20px" class="icon-close" >
+            <use class="icon-top" href="${svg}#icon-close"></use>
+          </svg>
+        <button>
+      </div>
+      </div>`;
+      movies.appendChild(modalHTML);
+
+      const modal = document.getElementById(`${title}`);
+      modal.classList.remove("is_hidden")
+      modalHTML.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
+
+      const btn = document.getElementById(`${poster_path}`);
+      btn.addEventListener('click', () =>{
+        modal.classList.add("is_hidden")
+        document.body.style.overflow = '';
+      })
+
+    });
   });
 }
-
-
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -270,15 +260,3 @@ function pageCall(page) {
     getMovies(url);
   }
 }
-
-const scrollControll = () => {
-  if (document.body.style.overflow === "hidden") {
-    // Разрешить скролл
-    document.body.style.overflow = "";
-  } else {
-    // Остановить скролл
-    document.body.style.overflow = "hidden";
-  }
-};
-
-
