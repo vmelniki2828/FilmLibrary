@@ -183,8 +183,22 @@
 
   right: 25;
   top: 25;
+
 }
 
 .btn-close:hover{
   fill: $buttonBg-color;
+  animation: spinClose 1s linear infinite;
+  transform-origin: center center;
+
+  @keyframes spinClose {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+}
+
+

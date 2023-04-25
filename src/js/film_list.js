@@ -157,7 +157,7 @@ function showMovies(data) {
       document.body.style.overflow = 'hidden';
       const modalHTML = document.createElement('div');
       modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
-      <div class="modal__content"">
+      <div class="modal__content">
         <div class="img__block">
             <img class="modal__img" src="${
               IMG_URL + poster_path
@@ -187,14 +187,14 @@ function showMovies(data) {
           </div>
         </div>
         
-        <button class="btn-close" id="${poster_path}">
-          <svg width="20px" height="20px" class="icon-close" >
-            <use class="icon-top" href="${svg}#icon-close"></use>
-          </svg>
-        <button>
-      </div>
+          <button class="btn-close" id="${poster_path}">
+            <svg width="20px" height="20px" class="icon-close" >
+              <use href="${svg}#icon-close"></use>
+            </svg>
+          </button>
+        </div>
       </div>`;
-      movies.appendChild(modalHTML);
+      document.body.appendChild(modalHTML);
 
       const modal = document.getElementById(`${title}`);
       modal.classList.remove("is_hidden")
@@ -206,6 +206,13 @@ function showMovies(data) {
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
+      })
+
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal){
+          modal.classList.add('is_hidden');
+          document.body.style.overflow = '';
+        }
       })
 
     });
