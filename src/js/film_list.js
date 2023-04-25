@@ -202,7 +202,6 @@ function showMovies(data) {
 
       const btn = document.getElementById(`${poster_path}`);
 
-      
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
