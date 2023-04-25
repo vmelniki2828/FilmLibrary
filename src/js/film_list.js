@@ -21,6 +21,9 @@ const prev = document.querySelector('.icon-arrow-left');
 const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
 
+const pagin = document.querySelector('.pagination');
+
+
 const pages = {
   currentPage: 1,
   nextPage: 2,
@@ -91,11 +94,14 @@ function getMovies(url) {
           left: 0,
           behavior: 'smooth',
         });
+        pagin.classList.remove('is_hidden');
       } else {
         movies.innerHTML = `<div>
         <img class="sorry" src="${sorry}">
-        <h1 class="sorry_text mt-30">Sorry, film not found(((</h1>
+        <h1 class="sorry_text mt-30 mb-30">Sorry, film not found(((</h1>
         </div>`;
+
+        pagin.classList.add('is_hidden');
       }
     });
 }
