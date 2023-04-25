@@ -1,5 +1,6 @@
 import axios from 'axios';
 import noImg from '../images/no_img.png';
+import sorry from '../images/sorry.png';
 import Handlebars from 'handlebars';
 import svg from '../images/symbol-defs.svg';
 
@@ -91,7 +92,10 @@ function getMovies(url) {
           behavior: 'smooth',
         });
       } else {
-        movies.innerHTML = '<h1>Error</h1>';
+        movies.innerHTML = `<div>
+        <img class="sorry" src="${sorry}">
+        <h1 class="sorry_text mt-30">Sorry, film not found(((</h1>
+        </div>`;
       }
     });
 }
