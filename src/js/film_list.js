@@ -198,7 +198,7 @@ function showMovies(data) {
 
       const modal = document.getElementById(`${title}`);
       modal.classList.remove("is_hidden")
-      modalHTML.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
+      modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
 
       const btn = document.getElementById(`${poster_path}`);
       btn.addEventListener('click', () =>{
