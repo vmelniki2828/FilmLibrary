@@ -1,5 +1,6 @@
 import axios from 'axios';
 import noImg from '../images/no_img.png';
+import sorry from '../images/sorry.png';
 import Handlebars from 'handlebars';
 import svg from '../images/symbol-defs.svg';
 
@@ -19,6 +20,9 @@ const select = document.querySelector('.form>select');
 const prev = document.querySelector('.icon-arrow-left');
 const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
+
+const pagin = document.querySelector('.pagination');
+
 
 const pages = {
   currentPage: 1,
@@ -90,8 +94,14 @@ function getMovies(url) {
           left: 0,
           behavior: 'smooth',
         });
+        pagin.classList.remove('is_hidden');
       } else {
-        movies.innerHTML = '<h1>Error</h1>';
+        movies.innerHTML = `<div>
+        <img class="sorry" src="${sorry}">
+        <h1 class="sorry_text mt-30 mb-30">Sorry, film not found(((</h1>
+        </div>`;
+
+        pagin.classList.add('is_hidden');
       }
     });
 }
@@ -202,7 +212,6 @@ function showMovies(data) {
 
       const btn = document.getElementById(`${poster_path}`);
 
-      
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
