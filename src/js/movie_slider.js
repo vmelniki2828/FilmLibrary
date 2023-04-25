@@ -2,7 +2,10 @@ import Glide from '@glidejs/glide';
 
 const refs = {
   movieEl: document.querySelectorAll('.glide__slide'),
+  modalSlider: document.querySelector('.glide__slide'),
 };
+
+
 
 
 const KEY = '7b497d31082fcfae4cc74000cae47751';
@@ -51,3 +54,8 @@ const glide = new Glide('.glide', {
 });
 glide.mount();
 
+
+
+refs.modalSlider.addEventListener('click', (e) => {
+  console.log('c');
+});
