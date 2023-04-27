@@ -81,7 +81,7 @@ function getMovies(url) {
 
         if (pages.currentPage <= 1) {
           prev.classList.add('disabled');
-          next.classList.remove('disabled');
+          next.classList.add('disabled');
         } else if (pages.currentPage < pages.totalPages) {
           prev.classList.remove('disabled');
           next.classList.remove('disabled');

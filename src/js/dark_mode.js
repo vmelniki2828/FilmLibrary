@@ -41,9 +41,13 @@ window.onload = function () {
     document.documentElement.style.backgroundColor = '#282f35';
     refs.movieTitleColor.style.color = '#fff';
     refs.slider.style.transform = 'translateX(26px)';
+    refs.movieFooterColor.style.backgroundColor = '#20272e'
+    refs.movieFooterColor.style.color = '#fff'
   } else {
     document.documentElement.style.backgroundColor = '#ffffff';
     refs.movieTitleColor.style.color = '#000';
     refs.slider.style.transform = 'translateX(0)';
+    refs.movieFooterColor.style.backgroundColor = '#f7f7f7'
+    refs.movieFooterColor.style.color = '#545454'
   }
 };
