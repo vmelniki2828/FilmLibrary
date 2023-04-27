@@ -54,7 +54,7 @@ const genres = [
   { id: 37, name: 'Western' },
 ];
 
-function idToGenre(id) {
+export default function idToGenre(id) {
   let ar = [];
   genres.map(el => {
     if (ar.length >= 3) {
@@ -79,9 +79,12 @@ function getMovies(url) {
         pages.totalPages = res.total_pages;
         current.innerText = pages.currentPage;
 
-        if (pages.currentPage <= 1) {
+        if(pages.totalPages === 1) {
+          pagin.classList.add('is_hidden');
+        }
+        else if (pages.currentPage <= 1) {
           prev.classList.add('disabled');
-          next.classList.add('disabled');
+          next.classList.remove('disabled');
         } else if (pages.currentPage < pages.totalPages) {
           prev.classList.remove('disabled');
           next.classList.remove('disabled');
@@ -94,7 +97,6 @@ function getMovies(url) {
           left: 0,
           behavior: 'smooth',
         });
-        pagin.classList.remove('is_hidden');
       } else {
         movies.innerHTML = `<div>
         <img class="sorry" src="${sorry}">
@@ -129,6 +131,7 @@ showGanresList(genres);
 
 function showMovies(data) {
   movies.innerHTML = '';
+  console.log(data);
   data.map(movie => {
     const {
       title,
@@ -143,7 +146,6 @@ function showMovies(data) {
       overview,
     } = movie;
     const movieEl = document.createElement('li');
-
     movieEl.classList.add('movie_card');
     movieEl.innerHTML = `
     <div class="image-container">
