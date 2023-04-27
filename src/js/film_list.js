@@ -217,7 +217,8 @@ function showMovies(data) {
       }
 
       console.log(arr);
-      modalBtn[0].addEventListener('click', () =>{
+      modalBtn[0].addEventListener('click', (evt) =>{
+        evt.preventDefault();
         console.log("asas");
         localStorage.setItem('item', JSON.stringify(arr))
         localStorage.getItem('item');
@@ -232,15 +233,15 @@ function showMovies(data) {
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
+
       })
 
       modal.addEventListener('click', (e) => {
         if(e.target === modal){
           modal.classList.add('is_hidden');
           document.body.style.overflow = '';
+          modalHTML.innerHTML='';
         }
-
-        modalHTML.innerHTML='';
       })
 
     });
