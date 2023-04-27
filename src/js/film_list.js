@@ -130,6 +130,7 @@ function showGanresList(arr) {
 showGanresList(genres);
 
 function showMovies(data) {
+  const arr = []
   movies.innerHTML = '';
   console.log(data);
   data.map(movie => {
@@ -208,6 +209,21 @@ function showMovies(data) {
       </div>`;
       document.body.appendChild(modalHTML);
 
+      const modalBtn = document.querySelectorAll('.btn-item')
+      console.log(modalBtn);
+
+      if(!arr.includes(movie)){
+        arr.push(movie)
+      }
+
+      console.log(arr);
+      modalBtn[0].addEventListener('click', (evt) =>{
+        evt.preventDefault();
+        console.log("asas");
+        localStorage.setItem('item', JSON.stringify(arr))
+        localStorage.getItem('item');
+      })
+
       const modal = document.getElementById(`${title}`);
       modal.classList.remove("is_hidden")
       modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
@@ -217,12 +233,14 @@ function showMovies(data) {
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
+
       })
 
       modal.addEventListener('click', (e) => {
         if(e.target === modal){
           modal.classList.add('is_hidden');
           document.body.style.overflow = '';
+          modalHTML.innerHTML='';
         }
       })
 

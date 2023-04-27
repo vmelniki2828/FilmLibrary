@@ -5,4 +5,6 @@ import './js/movie_slider'
 import './js/to_top'
 import './js/reload'
 import './js/switcher_btn'
+import './js/add_watched'
 import './js/active_btn'
+
