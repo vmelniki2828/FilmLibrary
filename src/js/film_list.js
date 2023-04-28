@@ -219,8 +219,14 @@ function showMovies(data) {
       console.log(arr);
       modalBtn[0].addEventListener('click', () =>{
         console.log("asas");
-        localStorage.setItem('item', JSON.stringify(arr))
-        localStorage.getItem('item');
+        localStorage.setItem('itemWatched', JSON.stringify(arr))
+        localStorage.getItem('itemWatched');
+      })
+
+      modalBtn[1].addEventListener('click', () =>{
+        console.log("asda");
+        localStorage.setItem('itemQueue', JSON.stringify(arr))
+        localStorage.getItem('itemQueue');
       })
 
       const modal = document.getElementById(`${title}`);
@@ -232,7 +238,7 @@ function showMovies(data) {
       btn.addEventListener('click', () =>{
         modal.classList.add("is_hidden")
         document.body.style.overflow = '';
-
+        modalHTML.innerHTML='';
       })
 
       modal.addEventListener('click', (e) => {
