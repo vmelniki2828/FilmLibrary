@@ -217,8 +217,7 @@ function showMovies(data) {
       }
 
       console.log(arr);
-      modalBtn[0].addEventListener('click', (evt) =>{
-        evt.preventDefault();
+      modalBtn[0].addEventListener('click', () =>{
         console.log("asas");
         localStorage.setItem('item', JSON.stringify(arr))
         localStorage.getItem('item');
