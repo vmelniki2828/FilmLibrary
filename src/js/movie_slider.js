@@ -102,23 +102,13 @@ async function getSliderOn(element) {
 
       const modalBtn = document.querySelectorAll('.btn-item');
 
-      // const watchedBtnState =
-      //   localStorage.getItem(`watched-${title}`) || 'ADD TO WATCHED';
-      // const queueBtnState =
-      //   localStorage.getItem(`queue-${title}`) || 'ADD TO QUEUE';
-
-      // modalBtn[0].textContent = watchedBtnState;
-      // modalBtn[1].textContent = queueBtnState;
-
       modalBtn[0].addEventListener('click', () => {
         if (modalBtn[0].textContent === 'ADD TO WATCHED') {
           addWatched(movie);
           modalBtn[0].textContent = 'REMOVE';
-          // localStorage.setItem(`watched-${title}`, 'REMOVE');
         }else{
           removeWatched(movie);
           modalBtn[0].textContent = 'ADD TO WATCHED';
-          // localStorage.setItem(`watched-${title}`, 'ADD TO QUEUE');
         }
       });
 
@@ -126,11 +116,9 @@ async function getSliderOn(element) {
         if (modalBtn[1].textContent === 'ADD TO QUEUE') {
           addQueue(movie);
           modalBtn[1].textContent = 'REMOVE';
-          // localStorage.setItem(`queue-${title}`, 'REMOVE');
         }else{
           removeQueue(movie);
           modalBtn[1].textContent = 'ADD TO QUEUE';
-          // localStorage.setItem(`queue-${title}`, 'ADD TO QUEUE');
         }
       });
 
