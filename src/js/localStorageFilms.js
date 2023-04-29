@@ -48,5 +48,3 @@ export function checkQueueValue(value) {
     return true;
   }
 }
-
-localStorage.clear();
