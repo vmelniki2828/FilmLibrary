@@ -84,8 +84,8 @@ async function getSliderOn(element) {
           <p class="modal__text-title">ABOUT</p>
           <p class="modal__text">${overview}<p>
           <div class="modal__btn">
-              <button class="btn-item">${checkWatchedValue(movie) ? 'ADD TO WATCHED' : 'REMOVE'}</button>
-              <button class="btn-item">${checkQueueValue(movie) ? 'ADD TO QUEUE' : 'REMOVE'}</button>
+              <button class="btn-item">${checkWatchedValue(movie) ? 'REMOVE' : 'ADD TO WATCHED'}</button>
+              <button class="btn-item">${checkQueueValue(movie) ? 'REMOVE' : 'ADD TO QUEUE'}</button>
           </div>
         </div>
         
@@ -98,27 +98,27 @@ async function getSliderOn(element) {
       </div>`;
       document.body.appendChild(modalHTML);
 
-      console.log(checkQueueValue(movie), 'sjnfjdsnfjsdnfsd');
+      // console.log(checkQueueValue(movie), 'sjnfjdsnfjsdnfsd');
 
       const modalBtn = document.querySelectorAll('.btn-item');
 
-      const watchedBtnState =
-        localStorage.getItem(`watched-${title}`) || 'ADD TO WATCHED';
-      const queueBtnState =
-        localStorage.getItem(`queue-${title}`) || 'ADD TO QUEUE';
+      // const watchedBtnState =
+      //   localStorage.getItem(`watched-${title}`) || 'ADD TO WATCHED';
+      // const queueBtnState =
+      //   localStorage.getItem(`queue-${title}`) || 'ADD TO QUEUE';
 
-      modalBtn[0].textContent = watchedBtnState;
-      modalBtn[1].textContent = queueBtnState;
+      // modalBtn[0].textContent = watchedBtnState;
+      // modalBtn[1].textContent = queueBtnState;
 
       modalBtn[0].addEventListener('click', () => {
         if (modalBtn[0].textContent === 'ADD TO WATCHED') {
           addWatched(movie);
           modalBtn[0].textContent = 'REMOVE';
-          localStorage.setItem(`watched-${title}`, 'REMOVE');
+          // localStorage.setItem(`watched-${title}`, 'REMOVE');
         }else{
           removeWatched(movie);
           modalBtn[0].textContent = 'ADD TO WATCHED';
-          localStorage.setItem(`watched-${title}`, 'ADD TO QUEUE');
+          // localStorage.setItem(`watched-${title}`, 'ADD TO QUEUE');
         }
       });
 
@@ -126,11 +126,11 @@ async function getSliderOn(element) {
         if (modalBtn[1].textContent === 'ADD TO QUEUE') {
           addQueue(movie);
           modalBtn[1].textContent = 'REMOVE';
-          localStorage.setItem(`queue-${title}`, 'REMOVE');
+          // localStorage.setItem(`queue-${title}`, 'REMOVE');
         }else{
           removeQueue(movie);
           modalBtn[1].textContent = 'ADD TO QUEUE';
-          localStorage.setItem(`queue-${title}`, 'ADD TO QUEUE');
+          // localStorage.setItem(`queue-${title}`, 'ADD TO QUEUE');
         }
       });
 

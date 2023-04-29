@@ -196,8 +196,8 @@ function showMovies(data) {
           <p class="modal__text-title">ABOUT</p>
           <p class="modal__text">${overview}<p>
           <div class="modal__btn">
-          <button class="btn-item">${checkWatchedValue(movie) ? 'ADD TO WATCHED' : 'REMOVE'}</button>
-          <button class="btn-item">${checkQueueValue(movie) ? 'ADD TO QUEUE' : 'REMOVE'}</button>
+          <button class="btn-item">${checkWatchedValue(movie) ? 'REMOVE' : 'ADD TO WATCHED'}</button>
+              <button class="btn-item">${checkQueueValue(movie) ? 'REMOVE' : 'ADD TO QUEUE'}</button>
           </div>
         </div>
         
