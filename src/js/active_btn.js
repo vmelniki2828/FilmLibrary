@@ -12,41 +12,90 @@ refs.btnQueue.addEventListener('click', () => {
     refs.btnWatched.classList.remove('is_active_btn');
     refs.btnQueue.classList.add('is_active_btn');
 
+    const movieList = localStorage.getItem('queue');
+    const parseMovieList = JSON.parse(movieList);
+    parseMovieList.map(movie => {
+      const {
+        title,
+        poster_path,
+        vote_average,
+        genre_ids,
+        release_date = '',
+      } = movie;
+
+      const movieEl = document.querySelector(
+        `.movie_card[data-id="${movie.id}"]`
+      );
+      if (movieEl) {
+        return;
+      }
+
+      const newMovieEl = document.createElement('li');
+      newMovieEl.classList.add('movie_card');
+      newMovieEl.dataset.id = movie.id;
+      newMovieEl.innerHTML = `
+    <div class="image-container">
+        <img class="movie__img" src="${
+          poster_path === null ? noImg : IMG_URL + poster_path
+        }" alt="${title}">
+    </div>
+    <h3 class="movie_title">${title}</h3>
+    <div class="movie_info">
+        <span class="movie_genre">${
+          idToGenre(genre_ids) + ' | ' + release_date.slice(0, 4)
+        }</span>
+
+        <span class="movie_vote">${vote_average}</span>
+
+    </div>
+  `;
+      refs.mainFilm.appendChild(newMovieEl);
+    });
 })
+
 
 refs.btnWatched.addEventListener('click', () => {
   refs.btnQueue.classList.remove('is_active_btn');
   refs.btnWatched.classList.add('is_active_btn');
 
-  const movieList = localStorage.getItem('watched');
-  const parseMovieList = JSON.parse(movieList);
-  parseMovieList.map(movie => {
-    const {
-      title,
-      poster_path,
-      vote_average,
-      genre_ids,
-      release_date = '',
-    } = movie;
-    const movieEl = document.createElement('li');
-    movieEl.classList.add('movie_card');
-    movieEl.innerHTML = `
+const movieList = localStorage.getItem('watched');
+const parseMovieList = JSON.parse(movieList);
+parseMovieList.map(movie => {
+  const {
+    title,
+    poster_path,
+    vote_average,
+    genre_ids,
+    release_date = '',
+  } = movie;
+
+  
+    const movieEl = document.querySelector(`.movie_card[data-id="${movie.id}"]`);
+    if (movieEl) {
+      return; 
+    }
+
+  
+  const newMovieEl = document.createElement('li');
+  newMovieEl.classList.add('movie_card');
+  newMovieEl.dataset.id = movie.id;
+  newMovieEl.innerHTML = `
     <div class="image-container">
         <img class="movie__img" src="${
           poster_path === null ? noImg : IMG_URL + poster_path
         }" alt="${title}">
-        </div>
-        <h3 class="movie_title">${title}</h3>
-        <div class="movie_info">
-            <span class="movie_genre">${
-              idToGenre(genre_ids) + ' | ' + release_date.slice(0, 4)
-            }</span>
+    </div>
+    <h3 class="movie_title">${title}</h3>
+    <div class="movie_info">
+        <span class="movie_genre">${
+          idToGenre(genre_ids) + ' | ' + release_date.slice(0, 4)
+        }</span>
 
-            <span class="movie_vote">${vote_average}</span>
+        <span class="movie_vote">${vote_average}</span>
 
-        </div>
-        `;
-    refs.mainFilm.appendChild(movieEl);
+    </div>
+  `;
+  refs.mainFilm.appendChild(newMovieEl);
   })
 });
 

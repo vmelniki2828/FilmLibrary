@@ -98,8 +98,6 @@ async function getSliderOn(element) {
       </div>`;
       document.body.appendChild(modalHTML);
 
-      console.log(checkQueueValue(movie), 'sjnfjdsnfjsdnfsd');
-
       const modalBtn = document.querySelectorAll('.btn-item');
 
       const watchedBtnState =
