@@ -18,7 +18,7 @@ refs.btnWatched.addEventListener('click', () => {
   refs.btnQueue.classList.remove('is_active_btn');
   refs.btnWatched.classList.add('is_active_btn');
 
-  const movieList = localStorage.getItem('itemWatched');
+  const movieList = localStorage.getItem('watched');
   const parseMovieList = JSON.parse(movieList);
   parseMovieList.map(movie => {
     const {

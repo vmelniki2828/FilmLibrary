@@ -10,8 +10,6 @@ const refs = {
   headSection: document.querySelector('.header__section'),
 }; 
 
-console.log(refs.headSection);
-
 
 home_library[0].addEventListener('click', ()=>{
     home_library[0].classList.add('active');

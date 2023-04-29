@@ -3,6 +3,7 @@ import noImg from '../images/no_img.png';
 import sorry from '../images/sorry.png';
 import Handlebars from 'handlebars';
 import svg from '../images/symbol-defs.svg';
+import {addWatched, addQueue, removeQueue, removeWatched, checkQueueValue, checkWatchedValue} from '../js/localStorageFilms'
 
 const KEY = 'a860cfd897e99827a5ea5e5210690a78';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -22,6 +23,7 @@ const next = document.querySelector('.icon-arrow-right');
 const current = document.querySelector('.current');
 
 const pagin = document.querySelector('.pagination');
+
 
 
 const pages = {
@@ -130,9 +132,8 @@ function showGanresList(arr) {
 showGanresList(genres);
 
 function showMovies(data) {
-  const arr = []
+
   movies.innerHTML = '';
-  console.log(data);
   data.map(movie => {
     const {
       title,
@@ -195,8 +196,8 @@ function showMovies(data) {
           <p class="modal__text-title">ABOUT</p>
           <p class="modal__text">${overview}<p>
           <div class="modal__btn">
-              <button class="btn-item">ADD TO WATCHED</button>
-              <button class="btn-item">ADD TO QUEUE</button>
+          <button class="btn-item">${checkWatchedValue(movie) ? 'ADD TO WATCHED' : 'REMOVE'}</button>
+          <button class="btn-item">${checkQueueValue(movie) ? 'ADD TO QUEUE' : 'REMOVE'}</button>
           </div>
         </div>
         
@@ -210,23 +211,25 @@ function showMovies(data) {
       document.body.appendChild(modalHTML);
 
       const modalBtn = document.querySelectorAll('.btn-item')
-      console.log(modalBtn);
 
-      if(!arr.includes(movie)){
-        arr.push(movie)
-      }
-
-      console.log(arr);
       modalBtn[0].addEventListener('click', () =>{
-        console.log("asas");
-        localStorage.setItem('itemWatched', JSON.stringify(arr))
-        localStorage.getItem('itemWatched');
+        if (modalBtn[0].textContent === 'ADD TO WATCHED') {
+          addWatched(movie);
+          modalBtn[0].textContent = 'REMOVE';
+        }else{
+          removeWatched(movie);
+          modalBtn[0].textContent = 'ADD TO WATCHED';
+        }
       })
 
       modalBtn[1].addEventListener('click', () =>{
-        console.log("asda");
-        localStorage.setItem('itemQueue', JSON.stringify(arr))
-        localStorage.getItem('itemQueue');
+        if (modalBtn[1].textContent === 'ADD TO QUEUE') {
+          addQueue(movie);
+          modalBtn[1].textContent = 'REMOVE';
+        }else{
+          removeQueue(movie);
+          modalBtn[1].textContent = 'ADD TO QUEUE';
+        }
       })
 
       const modal = document.getElementById(`${title}`);
