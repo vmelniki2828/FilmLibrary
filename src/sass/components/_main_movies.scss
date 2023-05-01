@@ -20,7 +20,7 @@
   }
 }
 
-.movie_card:not(:nth-child(3)){
+.movie-mrg:not(:nth-child(3)){
   margin-right: 12px;
 }
 
@@ -80,7 +80,14 @@
   text-transform: uppercase;
 
   color: #ffffff;
+}
 
+.modal__text{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .pagination {

@@ -16,7 +16,8 @@ const refs = {
   filmLibrary: document.querySelector('.movies_librery'),
   filmQueue: document.querySelector('.movies_queue'),
   mainFilmLibrary: document.querySelector('.main_movies_queue'),
-  mainFilmQueue: document.querySelector('.main_movies_library')
+  mainFilmQueue: document.querySelector('.main_movies_library'),
+  mainEmpty: document.querySelector('.main_empty')
 };
 
 
@@ -25,6 +26,8 @@ refs.btnQueue.addEventListener('click', () => {
     refs.btnQueue.classList.add('is_active_btn');
     refs.mainFilmLibrary.classList.remove('is_hidden');
     refs.mainFilmQueue.classList.add('is_hidden')
+    refs.mainEmpty.classList.add('is_hidden')
+
 
 
     refs.filmQueue.innerHTML = '';
@@ -54,6 +57,7 @@ refs.btnQueue.addEventListener('click', () => {
 
       const newMovieEl = document.createElement('li');
       newMovieEl.classList.add('movie_card');
+      newMovieEl.classList.add('movie-mrg');
       newMovieEl.dataset.id = movie.id;
       newMovieEl.innerHTML = `
     <div class="image-container">
@@ -175,6 +179,7 @@ refs.btnWatched.addEventListener('click', () => {
   refs.btnWatched.classList.add('is_active_btn');
   refs.mainFilmQueue.classList.remove('is_hidden');
   refs.mainFilmLibrary.classList.add('is_hidden')
+  refs.mainEmpty.classList.add('is_hidden');
 
 
   refs.filmLibrary.innerHTML = '';
@@ -203,6 +208,7 @@ parseMovieList.map(movie => {
   
   const newMovieEl = document.createElement('li');
   newMovieEl.classList.add('movie_card');
+  newMovieEl.classList.add('movie-mrg')
   newMovieEl.dataset.id = movie.id;
   newMovieEl.innerHTML = `
     <div class="image-container">
@@ -224,7 +230,7 @@ parseMovieList.map(movie => {
 
 
   newMovieEl.addEventListener('click', () => {
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
     const modalHTML = document.createElement('div');
     modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
       <div class="modal__content">
