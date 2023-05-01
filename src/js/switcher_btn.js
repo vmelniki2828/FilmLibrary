@@ -6,7 +6,6 @@ const refs = {
   mainMovie: document.querySelector('.main_movies'),
   mainMovieLibrary: document.querySelector('.main_movies_library'),
   mainMovieQueue: document.querySelector('.main_movies_queue'),
-  mainEmpty: document.querySelector('.main_empty'),
   btn: document.querySelector('.head_librery'),
   headSection: document.querySelector('.header__section'),
 }; 
@@ -17,11 +16,10 @@ home_library[0].addEventListener('click', ()=>{
     home_library[1].classList.remove('active');
 
     refs.slider.classList.remove('is_hidden');
-    refs.form.classList.remove('is_hidden')
-    refs.mainMovie.classList.remove('is_hidden')
+    refs.form.classList.remove('is_hidden');
+    refs.mainMovie.classList.remove('is_hidden');
     refs.mainMovieLibrary.classList.add('is_hidden');
-    refs.mainMovieQueue.classList.add('is_hidden')
-    refs.mainEmpty.classList.add('is_hidden')
+    refs.mainMovieQueue.classList.add('is_hidden');
     refs.btn.classList.add('is_hidden');
     refs.headSection.classList.add('header__section');
     refs.headSection.classList.remove('header_bg-section');
@@ -36,7 +34,6 @@ home_library[1].addEventListener('click', ()=>{
     refs.mainMovie.classList.add('is_hidden');
     refs.mainMovieLibrary.classList.add('is_hidden');
     refs.mainMovieQueue.classList.add('is_hidden');
-    refs.mainEmpty.classList.remove('is_hidden');
     refs.btn.classList.remove('is_hidden');
     refs.headSection.classList.remove('header__section');
     refs.headSection.classList.add('header_bg-section');

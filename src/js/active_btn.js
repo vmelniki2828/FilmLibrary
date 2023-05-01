@@ -17,7 +17,6 @@ const refs = {
   filmQueue: document.querySelector('.movies_queue'),
   mainFilmLibrary: document.querySelector('.main_movies_queue'),
   mainFilmQueue: document.querySelector('.main_movies_library'),
-  mainEmpty: document.querySelector('.main_empty')
 };
 
 
@@ -26,7 +25,6 @@ refs.btnQueue.addEventListener('click', () => {
     refs.btnQueue.classList.add('is_active_btn');
     refs.mainFilmLibrary.classList.remove('is_hidden');
     refs.mainFilmQueue.classList.add('is_hidden')
-    refs.mainEmpty.classList.add('is_hidden')
 
 
 
@@ -179,7 +177,6 @@ refs.btnWatched.addEventListener('click', () => {
   refs.btnWatched.classList.add('is_active_btn');
   refs.mainFilmQueue.classList.remove('is_hidden');
   refs.mainFilmLibrary.classList.add('is_hidden')
-  refs.mainEmpty.classList.add('is_hidden');
 
 
   refs.filmLibrary.innerHTML = '';

@@ -3,8 +3,16 @@
   justify-content: space-around;
 }
 
+.main_movies_library{
+  padding-bottom: 70px;
+}
+
 .movies_librery{
   margin-top: 60px;
+}
+
+.main_movies_queue{
+  padding-bottom: 70px;
 }
 
 .movies_queue{
@@ -95,7 +103,7 @@
   margin: 10px 30px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 60px;
+  padding-bottom: 85px;
 }
 
 .pagePrev{
