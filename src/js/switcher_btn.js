@@ -15,6 +15,8 @@ home_library[0].addEventListener('click', ()=>{
     home_library[0].classList.add('active');
     home_library[1].classList.remove('active');
 
+     localStorage.setItem('page', 'home');
+
     refs.slider.classList.remove('is_hidden');
     refs.form.classList.remove('is_hidden');
     refs.mainMovie.classList.remove('is_hidden');
@@ -29,6 +31,8 @@ home_library[1].addEventListener('click', ()=>{
     home_library[1].classList.add('active');
     home_library[0].classList.remove('active');
 
+    localStorage.setItem('page', 'library');
+
     refs.slider.classList.add('is_hidden');
     refs.form.classList.add('is_hidden')
     refs.mainMovie.classList.add('is_hidden');
@@ -39,4 +43,32 @@ home_library[1].addEventListener('click', ()=>{
     refs.headSection.classList.add('header_bg-section');
 })
 
-console.log('bfdbhfdshasdfbhsd')
+window.onload = function () {
+  const activePage = localStorage.getItem('page'); 
+
+  if (activePage === 'library') {
+      home_library[1].classList.add('active');
+      home_library[0].classList.remove('active');
+
+      refs.slider.classList.add('is_hidden');
+      refs.form.classList.add('is_hidden');
+      refs.mainMovie.classList.add('is_hidden');
+      refs.mainMovieLibrary.classList.remove('is_hidden');
+      refs.mainMovieQueue.classList.add('is_hidden');
+      refs.btn.classList.remove('is_hidden');
+      refs.headSection.classList.remove('header__section');
+      refs.headSection.classList.add('header_bg-section');
+  }else{
+    home_library[0].classList.add('active');
+    home_library[1].classList.remove('active');
+
+    refs.slider.classList.remove('is_hidden');
+    refs.form.classList.remove('is_hidden');
+    refs.mainMovie.classList.remove('is_hidden');
+    refs.mainMovieLibrary.classList.add('is_hidden');
+    refs.mainMovieQueue.classList.add('is_hidden');
+    refs.btn.classList.add('is_hidden');
+    refs.headSection.classList.add('header__section');
+    refs.headSection.classList.remove('header_bg-section');
+  }
+}
