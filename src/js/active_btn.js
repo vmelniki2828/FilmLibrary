@@ -19,45 +19,38 @@ const refs = {
   mainFilmQueue: document.querySelector('.main_movies_library'),
 };
 
+refs.btnQueue.addEventListener('click', renderBtnQueue);
 
+function renderBtnQueue() {
+  refs.btnWatched.classList.remove('is_active_btn');
+  refs.btnQueue.classList.add('is_active_btn');
+  refs.mainFilmLibrary.classList.remove('is_hidden');
+  refs.mainFilmQueue.classList.add('is_hidden');
 
-refs.btnQueue.addEventListener('click', () => {
-    refs.btnWatched.classList.remove('is_active_btn');
-    refs.btnQueue.classList.add('is_active_btn');
-    refs.mainFilmLibrary.classList.remove('is_hidden');
-    refs.mainFilmQueue.classList.add('is_hidden')
+  localStorage.setItem('activeButton', 'queue');
+  refs.filmQueue.innerHTML = '';
 
-    localStorage.setItem('activeButton', 'queue');
-    // refs.filmQueue.innerHTML = '';
+  const movieList = localStorage.getItem('queue');
+  const parseMovieList = JSON.parse(movieList);
+  parseMovieList.map(movie => {
+    const {
+      title,
+      poster_path,
+      vote_average,
+      vote_count,
+      popularity,
+      original_title,
+      genre_ids,
+      release_date = '',
+      backdrop_path,
+      overview,
+    } = movie;
 
-    const movieList = localStorage.getItem('queue');
-    const parseMovieList = JSON.parse(movieList);
-    parseMovieList.map(movie => {
-      const {
-        title,
-        poster_path,
-        vote_average,
-        vote_count,
-        popularity,
-        original_title,
-        genre_ids,
-        release_date = '',
-        backdrop_path,
-        overview,
-      } = movie;
-
-      const movieEl = document.querySelector(
-        `.movie_card[data-id="${movie.id}"]`
-      );
-      if (movieEl) {
-        return;
-      }
-
-      const newMovieEl = document.createElement('li');
-      newMovieEl.classList.add('movie_card');
-      newMovieEl.classList.add('movie-mrg');
-      newMovieEl.dataset.id = movie.id;
-      newMovieEl.innerHTML = `
+    const newMovieEl = document.createElement('li');
+    newMovieEl.classList.add('movie_card');
+    newMovieEl.classList.add('movie-mrg');
+    newMovieEl.dataset.id = movie.id;
+    newMovieEl.innerHTML = `
     <div class="image-container">
         <img class="movie__img" src="${
           poster_path === null ? noImg : IMG_URL + poster_path
@@ -73,13 +66,12 @@ refs.btnQueue.addEventListener('click', () => {
 
     </div>
   `;
-      refs.filmQueue.appendChild(newMovieEl);
+    refs.filmQueue.appendChild(newMovieEl);
 
-        
-  newMovieEl.addEventListener('click', () => {
-    document.body.style.overflow = 'hidden';
-    const modalHTML = document.createElement('div');
-    modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
+    newMovieEl.addEventListener('click', () => {
+      document.body.style.overflow = 'hidden';
+      const modalHTML = document.createElement('div');
+      modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
       <div class="modal__content">
         <div class="img__block">
             <img class="modal__img" src="${
@@ -121,93 +113,90 @@ refs.btnQueue.addEventListener('click', () => {
           </button>
         </div>
       </div>`;
-    document.body.appendChild(modalHTML);
+      document.body.appendChild(modalHTML);
 
-    const modalBtn = document.querySelectorAll('.btn-item');
+      const modalBtn = document.querySelectorAll('.btn-item');
 
-    modalBtn[0].addEventListener('click', () => {
-      if (modalBtn[0].textContent === 'ADD TO WATCHED') {
-        addWatched(movie);
-        modalBtn[0].textContent = 'REMOVE';
-      } else {
-        removeWatched(movie);
-        modalBtn[0].textContent = 'ADD TO WATCHED';
-      }
-    });
+      modalBtn[0].addEventListener('click', () => {
+        if (modalBtn[0].textContent === 'ADD TO WATCHED') {
+          addWatched(movie);
+          modalBtn[0].textContent = 'REMOVE';
+        } else {
+          removeWatched(movie);
+          modalBtn[0].textContent = 'ADD TO WATCHED';
+        }
+      });
 
-    modalBtn[1].addEventListener('click', () => {
-      if (modalBtn[1].textContent === 'ADD TO QUEUE') {
-        addQueue(movie);
-        modalBtn[1].textContent = 'REMOVE';
-      } else {
-        removeQueue(movie);
-        modalBtn[1].textContent = 'ADD TO QUEUE';
-      }
-    });
+      modalBtn[1].addEventListener('click', () => {
+        if (modalBtn[1].textContent === 'ADD TO QUEUE') {
+          addQueue(movie);
+          modalBtn[1].textContent = 'REMOVE';
+        } else {
+          removeQueue(movie);
+          modalBtn[1].textContent = 'ADD TO QUEUE';
+        }
+      });
 
-    const modal = document.getElementById(`${title}`);
-    modal.classList.remove('is_hidden');
-    modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
+      const modal = document.getElementById(`${title}`);
+      modal.classList.remove('is_hidden');
+      modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
 
-    const btn = document.getElementById(`${poster_path}`);
+      const btn = document.getElementById(`${poster_path}`);
 
-    btn.addEventListener('click', () => {
-      modal.classList.add('is_hidden');
-      document.body.style.overflow = '';
-      modalHTML.innerHTML = '';
-      refs.filmQueue.innerHTML = '';
-    });
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal) {
+      btn.addEventListener('click', () => {
         modal.classList.add('is_hidden');
         document.body.style.overflow = '';
         modalHTML.innerHTML = '';
         refs.filmQueue.innerHTML = '';
-      }
+        renderBtnQueue()
+      });
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          modal.classList.add('is_hidden');
+          document.body.style.overflow = '';
+          modalHTML.innerHTML = '';
+          refs.filmQueue.innerHTML = '';
+          renderBtnQueue()
+        }
+      });
     });
   });
-      
-  });
-})
+}
 
 
-refs.btnWatched.addEventListener('click', () => {
+refs.btnWatched.addEventListener('click', renderBtnWatched);
+
+function renderBtnWatched() {
   refs.btnQueue.classList.remove('is_active_btn');
   refs.btnWatched.classList.add('is_active_btn');
   refs.mainFilmQueue.classList.remove('is_hidden');
-  refs.mainFilmLibrary.classList.add('is_hidden')
+  refs.mainFilmLibrary.classList.add('is_hidden');
 
   localStorage.setItem('activeButton', 'watched');
-  // refs.filmLibrary.innerHTML = '';
+  refs.filmLibrary.innerHTML = '';
 
-const movieList = localStorage.getItem('watched');
-const parseMovieList = JSON.parse(movieList);
-parseMovieList.map(movie => {
-  const {
-    title,
-    poster_path,
-    vote_average,
-    vote_count,
-    popularity,
-    original_title,
-    genre_ids,
-    release_date = '',
-    backdrop_path,
-    overview,
-  } = movie;
+  const movieList = localStorage.getItem('watched');
+  const parseMovieList = JSON.parse(movieList);
+  parseMovieList.map(movie => {
+    const {
+      title,
+      poster_path,
+      vote_average,
+      vote_count,
+      popularity,
+      original_title,
+      genre_ids,
+      release_date = '',
+      backdrop_path,
+      overview,
+    } = movie;
 
-    const movieEl = document.querySelector(`.movie_card[data-id="${movie.id}"]`);
-    if (movieEl) {
-      return; 
-    }
-
-  
-  const newMovieEl = document.createElement('li');
-  newMovieEl.classList.add('movie_card');
-  newMovieEl.classList.add('movie-mrg')
-  newMovieEl.dataset.id = movie.id;
-  newMovieEl.innerHTML = `
+    const newMovieEl = document.createElement('li');
+    newMovieEl.classList.add('movie_card');
+    newMovieEl.classList.add('movie-mrg');
+    newMovieEl.dataset.id = movie.id;
+    newMovieEl.innerHTML = `
     <div class="image-container">
         <img class="movie__img" src="${
           poster_path === null ? noImg : IMG_URL + poster_path
@@ -223,12 +212,11 @@ parseMovieList.map(movie => {
 
     </div>
   `;
-  refs.filmLibrary.appendChild(newMovieEl);
+    refs.filmLibrary.appendChild(newMovieEl);
 
-
-  newMovieEl.addEventListener('click', () => {
-    const modalHTML = document.createElement('div');
-    modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
+    newMovieEl.addEventListener('click', () => {
+      const modalHTML = document.createElement('div');
+      modalHTML.innerHTML = `<div class="modal is_hidden" id="${title}">
       <div class="modal__content">
         <div class="img__block">
             <img class="modal__img" src="${
@@ -270,71 +258,71 @@ parseMovieList.map(movie => {
           </button>
         </div>
       </div>`;
-    document.body.appendChild(modalHTML);
+      document.body.appendChild(modalHTML);
 
-    const modalBtn = document.querySelectorAll('.btn-item');
+      const modalBtn = document.querySelectorAll('.btn-item');
 
-    modalBtn[0].addEventListener('click', () => {
-      if (modalBtn[0].textContent === 'ADD TO WATCHED') {
-        addWatched(movie);
-        modalBtn[0].textContent = 'REMOVE';
-      } else {
-        removeWatched(movie);
-        modalBtn[0].textContent = 'ADD TO WATCHED';
-      }
-    });
+      modalBtn[0].addEventListener('click', () => {
+        if (modalBtn[0].textContent === 'ADD TO WATCHED') {
+          addWatched(movie);
+          modalBtn[0].textContent = 'REMOVE';
+        } else {
+          removeWatched(movie);
+          modalBtn[0].textContent = 'ADD TO WATCHED';
+        }
+      });
 
-    modalBtn[1].addEventListener('click', () => {
-      if (modalBtn[1].textContent === 'ADD TO QUEUE') {
-        addQueue(movie);
-        modalBtn[1].textContent = 'REMOVE';
-      } else {
-        removeQueue(movie);
-        modalBtn[1].textContent = 'ADD TO QUEUE';
-      }
-    });
+      modalBtn[1].addEventListener('click', () => {
+        if (modalBtn[1].textContent === 'ADD TO QUEUE') {
+          addQueue(movie);
+          modalBtn[1].textContent = 'REMOVE';
+        } else {
+          removeQueue(movie);
+          modalBtn[1].textContent = 'ADD TO QUEUE';
+        }
+      });
 
-    const modal = document.getElementById(`${title}`);
-    modal.classList.remove('is_hidden');
-    modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
+      const modal = document.getElementById(`${title}`);
+      modal.classList.remove('is_hidden');
+      modal.style.backgroundImage = `url('${IMG_URL + backdrop_path}')`;
 
-    const btn = document.getElementById(`${poster_path}`);
+      const btn = document.getElementById(`${poster_path}`);
 
-    btn.addEventListener('click', () => {
-      modal.classList.add('is_hidden');
-      document.body.style.overflow = '';
-      modalHTML.innerHTML = '';
-      refs.filmLibrary.innerHTML = '';
-    });
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal) {
+      btn.addEventListener('click', () => {
         modal.classList.add('is_hidden');
         document.body.style.overflow = '';
         modalHTML.innerHTML = '';
         refs.filmLibrary.innerHTML = '';
-      }
+        renderBtnWatched()
+      });
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          modal.classList.add('is_hidden');
+          document.body.style.overflow = '';
+          modalHTML.innerHTML = '';
+          refs.filmLibrary.innerHTML = '';
+          renderBtnWatched()
+        }
+      });
     });
   });
-  });
-});
-
+}
 
 window.addEventListener('load', () => {
   const activeButton = localStorage.getItem('activeButton');
 
-
-  if(activeButton === 'queue') {
+  if (activeButton === 'queue') {
     refs.btnWatched.classList.remove('is_active_btn');
     refs.btnQueue.classList.add('is_active_btn');
     refs.mainFilmLibrary.classList.remove('is_hidden');
     refs.mainFilmQueue.classList.add('is_hidden');
-    
-
-  } else if (activeButton === 'watched'){
-  refs.btnQueue.classList.remove('is_active_btn');
-  refs.btnWatched.classList.add('is_active_btn');
-  refs.mainFilmQueue.classList.remove('is_hidden');
-  refs.mainFilmLibrary.classList.add('is_hidden');
+    renderBtnQueue()
+  } else if (activeButton === 'watched') {
+    refs.btnQueue.classList.remove('is_active_btn');
+    refs.btnWatched.classList.add('is_active_btn');
+    refs.mainFilmQueue.classList.remove('is_hidden');
+    refs.mainFilmLibrary.classList.add('is_hidden');
+    renderBtnWatched()
   }
-})
+});
